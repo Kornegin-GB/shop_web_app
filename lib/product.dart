@@ -1,21 +1,23 @@
 ///Класс описывает продукт
 class Product {
-  String _productName = '';
-  String _productDescription = '';
-  String _fullProductDescription = '';
-  String _productImage = '';
-  int _productPrise = 0;
+  final String nameProduct;
+  final String descriptionProduct;
+  final String imgProduct;
+  final int priceProduct;
 
-  Product(this._productName, this._productDescription,
-      this._fullProductDescription, this._productPrise, this._productImage);
+  Product({
+    required this.nameProduct,
+    required this.descriptionProduct,
+    required this.priceProduct,
+    required this.imgProduct,
+  });
 
-  String get productImage => _productImage;
-
-  String get productDescription => _productDescription;
-
-  String get productName => _productName;
-
-  String get fullProductDescription => _fullProductDescription;
-
-  int get productPrise => _productPrise;
+  factory Product.fromJson(Map<String, dynamic> parsJson) {
+    return Product(
+      nameProduct: parsJson['nameProduct'],
+      descriptionProduct: parsJson['descriptionProduct'],
+      priceProduct: parsJson['priceProduct'],
+      imgProduct: parsJson['imgProduct'],
+    );
+  }
 }
