@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:shop_web_app/product.dart';
+import 'package:shop_web_app/adding_products/product.dart';
 
 ///Класс реализует добавление в лист продукты из базы данных
 class AddListProduct {
@@ -14,5 +14,3 @@ class AddListProduct {
     return productList;
   }
 }
-
-//TODO: Реализовать выборку JSON

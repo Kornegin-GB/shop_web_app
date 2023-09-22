@@ -1,25 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_web_app/product.dart';
-
-class ProductApp extends StatefulWidget {
-  const ProductApp({super.key});
-
-  @override
-  State<ProductApp> createState() => _ProductAppState();
-}
-
-class _ProductAppState extends State<ProductApp> {
-  @override
-  Widget build(BuildContext context) {
-    final product = ModalRoute.of(context)?.settings.arguments as Product;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(product.nameProduct),
-      ),
-      body: ProductPage(product: product),
-    );
-  }
-}
+import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
+import 'package:shop_web_app/adding_products/product.dart';
 
 /// Класс рисует страницу одного товара
 class ProductPage extends StatelessWidget {
@@ -46,6 +27,20 @@ class ProductPage extends StatelessWidget {
         ),
         const Padding(padding: EdgeInsets.all(10)),
         Text(product.descriptionProduct, textAlign: TextAlign.justify),
+        const Padding(padding: EdgeInsets.all(20)),
+        ElevatedButton(
+          onPressed: () {
+            AddShoppingCart().setProduct(product);
+          },
+          style: ElevatedButton.styleFrom(
+            elevation: 5.0,
+            minimumSize: const Size.square(60),
+            textStyle: const TextStyle(
+              fontSize: 22,
+            ),
+          ),
+          child: const Text('Добавить в корзину'),
+        ),
       ],
     );
   }
