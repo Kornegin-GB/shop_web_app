@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
 import 'package:shop_web_app/adding_products/product.dart';
+import 'package:shop_web_app/adding_products/shopping_cart.dart';
 
 /// Класс рисует карточку товара списка
 class ProductListCard extends StatelessWidget {
@@ -50,7 +50,7 @@ class ProductListCard extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                AddShoppingCart().setProduct(product);
+                ShoppingCart().setProduct(product);
               },
               icon: const Icon(
                 Icons.add_shopping_cart,

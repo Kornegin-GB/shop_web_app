@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
 import 'package:shop_web_app/adding_products/product.dart';
+import 'package:shop_web_app/adding_products/shopping_cart.dart';
 import 'package:shop_web_app/builder_app_bar.dart';
 import 'package:shop_web_app/shopping_cart_page/shopping_cart_page.dart';
 
-class ShoppingCartApp extends StatefulWidget {
-  const ShoppingCartApp({super.key});
+class ShoppingCartScreen extends StatefulWidget {
+  const ShoppingCartScreen({super.key});
 
   @override
-  State<ShoppingCartApp> createState() => _ShoppingCartAppState();
+  State<ShoppingCartScreen> createState() => _ShoppingCartScreenState();
 }
 
-class _ShoppingCartAppState extends State<ShoppingCartApp> {
-  List<Product> products = AddShoppingCart().getProduct();
-  late int sumProducts = AddShoppingCart().getSumProducts(products);
+class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
+  List<Product> products = ShoppingCart().getProduct();
+  late int sumProducts = ShoppingCart().getSumProducts(products);
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +31,7 @@ class _ShoppingCartAppState extends State<ShoppingCartApp> {
                 ),
               )
             : ShoppingCartPage(products: products),
-        bottomSheet: //(products.isNotEmpty)
-            // ?
-            BottomSheet(
+        bottomSheet: BottomSheet(
           builder: (_) {
             return Container(
               padding: const EdgeInsets.only(right: 30, top: 10, bottom: 10),

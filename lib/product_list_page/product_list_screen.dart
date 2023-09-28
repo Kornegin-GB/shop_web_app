@@ -4,14 +4,14 @@ import 'package:shop_web_app/adding_products/product.dart';
 import 'package:shop_web_app/builder_app_bar.dart';
 import 'package:shop_web_app/product_list_page/product_list_card.dart';
 
-class ProductListApp extends StatefulWidget {
-  const ProductListApp({super.key});
+class ProductListScreen extends StatefulWidget {
+  const ProductListScreen({super.key});
 
   @override
-  State<ProductListApp> createState() => _ProductListAppState();
+  State<ProductListScreen> createState() => _ProductListScreenState();
 }
 
-class _ProductListAppState extends State<ProductListApp> {
+class _ProductListScreenState extends State<ProductListScreen> {
   List<Product> products = [];
 
   Future<void> _loadProductsList() async {

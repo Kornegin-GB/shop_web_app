@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
 import 'package:shop_web_app/adding_products/product.dart';
+import 'package:shop_web_app/adding_products/shopping_cart.dart';
 
 /// Класс рисует страницу одного товара
 class ProductPage extends StatelessWidget {
@@ -30,7 +30,7 @@ class ProductPage extends StatelessWidget {
         const Padding(padding: EdgeInsets.all(20)),
         ElevatedButton(
           onPressed: () {
-            AddShoppingCart().setProduct(product);
+            ShoppingCart().setProduct(product);
           },
           style: ElevatedButton.styleFrom(
             elevation: 5.0,

@@ -3,14 +3,14 @@ import 'package:shop_web_app/adding_products/product.dart';
 import 'package:shop_web_app/builder_app_bar.dart';
 import 'package:shop_web_app/product_page/product_page.dart';
 
-class ProductApp extends StatefulWidget {
-  const ProductApp({super.key});
+class ProductScreen extends StatefulWidget {
+  const ProductScreen({super.key});
 
   @override
-  State<ProductApp> createState() => _ProductAppState();
+  State<ProductScreen> createState() => _ProductScreenState();
 }
 
-class _ProductAppState extends State<ProductApp> {
+class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     final product = ModalRoute.of(context)?.settings.arguments as Product;
