@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:shop_web_app/adding_products/product.dart';
 
 /// Класс описывает добавление товара в корзину
-class ShoppingCart {
+class ShoppingCart extends ChangeNotifier {
   static final ShoppingCart _instance = ShoppingCart._internal();
 
-  List<Product> products = [];
+  Map<Product, int> products = {};
 
   factory ShoppingCart() {
     return _instance;
@@ -12,27 +13,57 @@ class ShoppingCart {
 
   ShoppingCart._internal();
 
-  List<Product> setProduct(Product addProduct) {
-    products.add(Product(
-        nameProduct: addProduct.nameProduct,
-        descriptionProduct: addProduct.descriptionProduct,
-        priceProduct: addProduct.priceProduct,
-        imgProduct: addProduct.imgProduct));
+  /// Формируем список товаров добавляемых в корзину
+  Map<Product, int> setProduct(Product product) {
+    notifyListeners();
+    products.update(product, (value) => ++value, ifAbsent: () => 1);
     return products;
   }
 
-  int getSumProducts(List<Product> products) {
-    int sumProducts = 0;
-    for (var element in products) {
-      sumProducts += element.priceProduct;
+  ///Метод увеличения количества добавленного товара
+  void quantityUp(Product product) {
+    notifyListeners();
+    products.update(product, (value) => ++value);
+  }
+
+  ///Метод уменьшения количества добавленного товара
+  ///Если счётчик достиг нуля то продукт удаляется ипз корзины
+  void quantityDown(Product product) {
+    notifyListeners();
+    products.update(product, (value) => --value);
+    if (products[product] == 0) {
+      products.remove(product);
     }
+  }
+
+  ///Подсчёт суммы добавляемого товара в корзину
+  int getSumProducts() {
+    int sumProducts = 0;
+    for (var product in products.keys) {
+      sumProducts += product.priceProduct * products[product]!;
+    }
+    // notifyListeners();
     return sumProducts;
   }
 
-  List<Product> getProduct() {
+  ///Возвращаем список добавленных товаров
+  Map<Product, int> getProduct() {
+    notifyListeners();
     return products;
   }
+
+  ///Метод очищает список товаров
+  void removeProducts() {
+    notifyListeners();
+    products.clear();
+  }
+
+  ///Метод счётчик, подсчёт количество товаров в корзине
+  int getCounterProducts() {
+    int count = 0;
+    for (int quantityProduct in products.values) {
+      count += quantityProduct;
+    }
+    return count;
+  }
 }
-//TODO: Выполнить
-// 2. При достижении 0 товар удаляется из корзины
-// 3. Общая сумма при этом должна пересчитываться
