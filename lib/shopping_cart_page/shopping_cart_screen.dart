@@ -5,6 +5,7 @@ import 'package:shop_web_app/builder_app_bar.dart';
 import 'package:shop_web_app/shopping_cart_page/bottom_sheet_builder.dart';
 import 'package:shop_web_app/shopping_cart_page/shopping_cart_page.dart';
 
+/// Класс главного экрана корзины товаров
 class ShoppingCartScreen extends StatefulWidget {
   const ShoppingCartScreen({super.key});
 
