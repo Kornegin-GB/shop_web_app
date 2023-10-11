@@ -24,29 +24,35 @@ class _BottomSheetBuilderState extends State<BottomSheetBuilder> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Padding(padding: EdgeInsets.all(5)),
-                Text(
-                  'Сумма: ${value.getSumProducts()} р',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      'Amount: ${value.getSumProducts()}',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                    const Icon(Icons.currency_ruble, size: 18),
+                  ],
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.background,
+                    minimumSize: const Size(165, 40),
                   ),
                   onPressed: () {
                     if (value.products.isNotEmpty) {
                       value.removeProducts();
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Товар успешно куплен!'),
+                          content: Text('Products successfully purchased!'),
                         ),
                       );
                     }
                   },
                   child: const Text(
-                    'Купить',
+                    'BUY',
                     style: TextStyle(fontSize: 30),
                   ),
                 )

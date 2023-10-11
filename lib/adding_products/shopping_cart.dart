@@ -15,25 +15,25 @@ class ShoppingCart extends ChangeNotifier {
 
   /// Формируем список товаров добавляемых в корзину
   Map<Product, int> setProduct(Product product) {
-    notifyListeners();
     products.update(product, (value) => ++value, ifAbsent: () => 1);
+    notifyListeners();
     return products;
   }
 
   ///Метод увеличения количества добавленного товара
   void quantityUp(Product product) {
-    notifyListeners();
     products.update(product, (value) => ++value);
+    notifyListeners();
   }
 
   ///Метод уменьшения количества добавленного товара
   ///Если счётчик достиг нуля то продукт удаляется ипз корзины
   void quantityDown(Product product) {
-    notifyListeners();
     products.update(product, (value) => --value);
     if (products[product] == 0) {
       products.remove(product);
     }
+    notifyListeners();
   }
 
   ///Подсчёт суммы добавляемого товара в корзину
@@ -42,20 +42,18 @@ class ShoppingCart extends ChangeNotifier {
     for (var product in products.keys) {
       sumProducts += product.priceProduct * products[product]!;
     }
-    // notifyListeners();
     return sumProducts;
   }
 
   ///Возвращаем список добавленных товаров
   Map<Product, int> getProduct() {
-    notifyListeners();
     return products;
   }
 
   ///Метод очищает список товаров
   void removeProducts() {
-    notifyListeners();
     products.clear();
+    notifyListeners();
   }
 
   ///Метод счётчик, подсчёт количество товаров в корзине

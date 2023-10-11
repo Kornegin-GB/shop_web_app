@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_web_app/adding_products/product.dart';
 import 'package:shop_web_app/adding_products/shopping_cart.dart';
+import 'package:shop_web_app/favourites_page/favourites_db.dart';
 
 /// Класс рисует карточку товара списка
-class ProductListCard extends StatelessWidget {
-  const ProductListCard({
-    super.key,
-    required this.product,
-  });
+class ProductListCard extends StatefulWidget {
+  const ProductListCard({super.key, required this.product});
 
   final Product product;
+
+  @override
+  State<ProductListCard> createState() => _ProductListCardState();
+}
+
+class _ProductListCardState extends State<ProductListCard> {
+  late bool isFavourite = false;
+
+  @override
+  void initState() {
+    FavoritesDb.db.isFavourite(widget.product.id).then((elem) {
+      isFavourite = elem;
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +32,12 @@ class ProductListCard extends StatelessWidget {
       color: Theme.of(context).colorScheme.background,
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, '/product', arguments: product);
+          Navigator.pushNamed(context, '/product', arguments: widget.product);
         },
         child: Row(
           children: [
             Image(
-              image: AssetImage('assets/images/${product.imgProduct}'),
+              image: AssetImage('assets/images/${widget.product.imgProduct}'),
               width: 150,
             ),
             const Padding(padding: EdgeInsets.all(5)),
@@ -33,31 +48,60 @@ class ProductListCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      product.nameProduct,
+                      widget.product.nameProduct,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const Padding(padding: EdgeInsets.all(5)),
                     Text(
-                      product.descriptionProduct,
+                      widget.product.descriptionProduct,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const Padding(padding: EdgeInsets.all(5)),
-                    Text('Цена: ${product.priceProduct.toString()} р.'),
+                    Text('Цена: ${widget.product.priceProduct.toString()} р.'),
                   ],
                 ),
               ),
             ),
-            IconButton(
-              onPressed: () {
-                ShoppingCart().setProduct(product);
-              },
-              icon: const Icon(
-                Icons.add_shopping_cart,
-                size: 32,
-                color: Colors.blueGrey,
-              ),
-            ),
+            Column(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    ShoppingCart().setProduct(widget.product);
+                  },
+                  icon: const Icon(
+                    Icons.add_shopping_cart,
+                    size: 32,
+                    color: Colors.blueGrey,
+                  ),
+                ),
+                Consumer<FavoritesDb>(
+                  builder: (context, value, child) => (isFavourite)
+                      ? IconButton(
+                          onPressed: () {
+                            isFavourite = false;
+                            value.deleteProduct(widget.product.id);
+                            value.closeDB();
+                          },
+                          icon: const Icon(
+                            Icons.favorite,
+                            color: Colors.blueGrey,
+                          ),
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            isFavourite = true;
+                            value.insertProduct(widget.product);
+                            value.closeDB();
+                          },
+                          icon: const Icon(
+                            Icons.favorite_border,
+                            color: Colors.blueGrey,
+                          ),
+                        ),
+                ),
+              ],
+            )
           ],
         ),
       ),

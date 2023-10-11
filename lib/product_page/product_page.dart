@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_web_app/adding_products/product.dart';
 import 'package:shop_web_app/adding_products/shopping_cart.dart';
+import 'package:shop_web_app/favourites_page/favourites_db.dart';
 
 /// Класс рисует страницу одного товара
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({
     super.key,
     required this.product,
@@ -12,35 +14,79 @@ class ProductPage extends StatelessWidget {
   final Product product;
 
   @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  bool isFavourite = false;
+
+  @override
+  void initState() {
+    FavoritesDb.db.isFavourite(widget.product.id).then((elem) {
+      isFavourite = elem;
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.only(left: 5, right: 5, bottom: 30),
       children: [
         const Padding(padding: EdgeInsets.all(3)),
-        Image(image: AssetImage('assets/images/${product.imgProduct}')),
+        Image(image: AssetImage('assets/images/${widget.product.imgProduct}')),
         const Padding(padding: EdgeInsets.all(10)),
         Text(
-          'Цена: ${product.priceProduct.toString()} р.',
+          'Цена: ${widget.product.priceProduct.toString()} р.',
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
         const Padding(padding: EdgeInsets.all(10)),
-        Text(product.descriptionProduct, textAlign: TextAlign.justify),
+        Text(widget.product.descriptionProduct, textAlign: TextAlign.justify),
         const Padding(padding: EdgeInsets.all(20)),
-        ElevatedButton(
-          onPressed: () {
-            ShoppingCart().setProduct(product);
-          },
-          style: ElevatedButton.styleFrom(
-            elevation: 5.0,
-            minimumSize: const Size.square(60),
-            textStyle: const TextStyle(
-              fontSize: 22,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                ShoppingCart().setProduct(widget.product);
+              },
+              style: ElevatedButton.styleFrom(
+                elevation: 5.0,
+                minimumSize: const Size(280, 60),
+                textStyle: const TextStyle(
+                  fontSize: 22,
+                ),
+              ),
+              child: const Text('Add to cart'),
             ),
-          ),
-          child: const Text('Добавить в корзину'),
-        ),
+            Consumer<FavoritesDb>(
+              builder: (context, value, child) => (isFavourite)
+                  ? IconButton(
+                      onPressed: () {
+                        isFavourite = false;
+                        value.deleteProduct(widget.product.id);
+                        value.closeDB();
+                        setState(() {});
+                      },
+                      icon: const Icon(Icons.favorite,
+                          size: 38, color: Colors.blueGrey),
+                    )
+                  : IconButton(
+                      onPressed: () {
+                        isFavourite = true;
+                        value.insertProduct(widget.product);
+                        value.closeDB();
+                        setState(() {});
+                      },
+                      icon: const Icon(Icons.favorite_border,
+                          size: 38, color: Colors.blueGrey),
+                    ),
+            ),
+          ],
+        )
       ],
     );
   }

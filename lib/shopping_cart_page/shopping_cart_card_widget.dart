@@ -7,11 +7,9 @@ import 'package:shop_web_app/adding_products/shopping_cart.dart';
 class ShoppingCartCardWidget extends StatelessWidget {
   ShoppingCartCardWidget({
     super.key,
-    required this.index,
     required this.product,
   });
 
-  int index;
   Product product;
 
   @override
@@ -42,9 +40,9 @@ class ShoppingCartCardWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         IconButton(
-                          icon: const Icon(Icons.add, size: 18),
+                          icon: const Icon(Icons.remove, size: 18),
                           onPressed: () {
-                            value.quantityUp(product);
+                            value.quantityDown(product);
                           },
                         ),
                         const Padding(
@@ -58,9 +56,9 @@ class ShoppingCartCardWidget extends StatelessWidget {
                           padding: EdgeInsets.only(right: 15),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.remove, size: 18),
+                          icon: const Icon(Icons.add, size: 18),
                           onPressed: () {
-                            value.quantityDown(product);
+                            value.quantityUp(product);
                           },
                         ),
                       ],

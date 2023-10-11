@@ -3,18 +3,18 @@ import 'package:provider/provider.dart';
 import 'package:shop_web_app/adding_products/shopping_cart.dart';
 
 class BuilderAppBar extends StatelessWidget {
-  const BuilderAppBar({super.key, required this.titleApp});
+  BuilderAppBar({super.key, required this.titleApp, required this.withCart});
 
+  bool withCart;
   final String titleApp;
 
   @override
   Widget build(BuildContext context) {
-    imageCache.clear();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(titleApp),
-        (ModalRoute.of(context)?.settings.name != '/cart')
+        (withCart)
             ? Stack(
                 alignment: Alignment.topRight,
                 children: [

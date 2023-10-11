@@ -18,13 +18,13 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const BuilderAppBar(titleApp: 'Корзина'),
+        title: BuilderAppBar(titleApp: 'Shopping cart', withCart: false),
       ),
       body: Consumer<ShoppingCart>(
         builder: (context, value, child) => (value.products.isEmpty)
             ? const Center(
                 child: Text(
-                  'Корзина пустая',
+                  'Shopping cart empty',
                   style: TextStyle(
                     fontSize: 20,
                   ),
