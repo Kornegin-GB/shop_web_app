@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_web_app/bottom_navigation_bar_builder.dart';
 import 'package:shop_web_app/builder_app_bar.dart';
 import 'package:shop_web_app/favourites_page/favourites_future_builder.dart';
 
@@ -14,11 +13,9 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: BuilderAppBar(titleApp: 'Favourites', withCart: true),
-      ),
-      body: const FavouritesFutureBuilder(),
-      bottomNavigationBar: BottomNavigationBarBuilder(favoritePage: 1),
-    );
+        appBar: AppBar(
+          title: BuilderAppBar(titleApp: 'Favourites', withCart: true),
+        ),
+        body: const FavouritesFutureBuilder());
   }
 }

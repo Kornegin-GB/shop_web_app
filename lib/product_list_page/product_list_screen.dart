@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_web_app/adding_products/add_list_product.dart';
 import 'package:shop_web_app/adding_products/product.dart';
-import 'package:shop_web_app/bottom_navigation_bar_builder.dart';
 import 'package:shop_web_app/builder_app_bar.dart';
 import 'package:shop_web_app/product_list_page/product_list_card.dart';
 
@@ -38,7 +37,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
           return ProductListCard(product: products[index]);
         },
       ),
-      bottomNavigationBar: BottomNavigationBarBuilder(favoritePage: 0),
     );
   }
 }

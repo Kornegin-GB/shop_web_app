@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_web_app/adding_products/product.dart';
+import 'package:shop_web_app/database_app.dart';
 import 'package:shop_web_app/favourites_page/favourites_card.dart';
-import 'package:shop_web_app/favourites_page/favourites_db.dart';
 
 class FavouritesFutureBuilder extends StatelessWidget {
   const FavouritesFutureBuilder({
@@ -11,7 +11,7 @@ class FavouritesFutureBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FavoritesDb>(
+    return Consumer<DatabaseApp>(
       builder: (context, value, child) => FutureBuilder(
         future: value.showAllProducts(),
         builder: (context, snapshot) {
