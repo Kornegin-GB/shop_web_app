@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_web_app/adding_products/product.dart';
 import 'package:shop_web_app/adding_products/shopping_cart.dart';
-import 'package:shop_web_app/database_app.dart';
+import 'package:shop_web_app/favourites_page/add_favourites_product.dart';
 
 /// Класс рисует страницу одного товара
 class ProductPage extends StatefulWidget {
@@ -22,8 +22,10 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   void initState() {
-    DatabaseApp.db.isFavourite(widget.product.id).then((elem) {
-      isFavourite = elem;
+    AddFavouritesProduct()
+        .isNotEmptyFavouriteProduct(widget.product.id)
+        .then((value) {
+      isFavourite = value;
       setState(() {});
     });
     super.initState();
@@ -62,12 +64,12 @@ class _ProductPageState extends State<ProductPage> {
               ),
               child: const Text('Add to cart'),
             ),
-            Consumer<DatabaseApp>(
+            Consumer<AddFavouritesProduct>(
               builder: (context, value, child) => (isFavourite)
                   ? IconButton(
                       onPressed: () {
                         isFavourite = false;
-                        value.deleteProduct(widget.product.id);
+                        value.deleteFavouriteProduct(widget.product.id);
                         setState(() {});
                       },
                       icon: const Icon(Icons.favorite,
@@ -76,7 +78,7 @@ class _ProductPageState extends State<ProductPage> {
                   : IconButton(
                       onPressed: () {
                         isFavourite = true;
-                        value.insertProduct(widget.product);
+                        value.addFavouriteProduct(widget.product);
                         setState(() {});
                       },
                       icon: const Icon(Icons.favorite_border,

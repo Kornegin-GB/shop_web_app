@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_web_app/adding_products/product.dart';
 import 'package:shop_web_app/adding_products/shopping_cart.dart';
-import 'package:shop_web_app/database_app.dart';
+import 'package:shop_web_app/favourites_page/add_favourites_product.dart';
 
 /// Класс рисует карточку товара списка
 class ProductListCard extends StatefulWidget {
@@ -19,8 +19,10 @@ class _ProductListCardState extends State<ProductListCard> {
 
   @override
   void initState() {
-    DatabaseApp.db.isFavourite(widget.product.id).then((elem) {
-      isFavourite = elem;
+    AddFavouritesProduct()
+        .isNotEmptyFavouriteProduct(widget.product.id)
+        .then((value) {
+      isFavourite = value;
       setState(() {});
     });
     super.initState();
@@ -75,12 +77,12 @@ class _ProductListCardState extends State<ProductListCard> {
                     color: Colors.blueGrey,
                   ),
                 ),
-                Consumer<DatabaseApp>(
+                Consumer<AddFavouritesProduct>(
                   builder: (context, value, child) => (isFavourite)
                       ? IconButton(
                           onPressed: () {
                             isFavourite = false;
-                            value.deleteProduct(widget.product.id);
+                            value.deleteFavouriteProduct(widget.product.id);
                           },
                           icon: const Icon(
                             Icons.favorite,
@@ -90,7 +92,7 @@ class _ProductListCardState extends State<ProductListCard> {
                       : IconButton(
                           onPressed: () {
                             isFavourite = true;
-                            value.insertProduct(widget.product);
+                            value.addFavouriteProduct(widget.product);
                           },
                           icon: const Icon(
                             Icons.favorite_border,

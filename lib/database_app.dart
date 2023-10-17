@@ -4,15 +4,15 @@ import 'package:shop_web_app/adding_products/product.dart';
 import 'package:shop_web_app/database_update_list.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseApp extends ChangeNotifier {
+class DatabaseApp {
   final String _databaseName = 'favourite_database.db';
   final int _databaseVersion = 1;
-  final String tableFavourite = 'favorites';
-  final String columnId = 'id';
-  final String columnNameProduct = 'nameProduct';
-  final String columnDescriptionProduct = 'descriptionProduct';
-  final String columnImgProduct = 'imgProduct';
-  final String columnPriceProduct = 'priceProduct';
+  final String _tableFavourite = 'favorites';
+  final String _columnId = 'id';
+
+  String get columnId => _columnId;
+
+  String get tableFavourite => _tableFavourite;
 
   static final DatabaseApp db = DatabaseApp._();
 
@@ -48,45 +48,43 @@ class DatabaseApp extends ChangeNotifier {
   }
 
   ///Внесение записи в базу данных
-  insertProduct(Product product) async {
+  insertProduct(Product product, String tableName) async {
     final db = await database;
-    notifyListeners();
     return await db.insert(
-      tableFavourite,
+      tableName,
       product.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
   ///Чтение всех записей из базы данных
-  showAllProducts() async {
+  showAllProducts(String tableName) async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query(tableFavourite);
+    final List<Map<String, dynamic>> maps = await db.query(tableName);
     return List.generate(maps.length, (i) {
       return Product.fromJson(maps[i]);
     });
   }
 
   ///Проверяем есть ли запись в базе данных
-  isFavourite(int id) async {
+  isNotEmptyProduct(int id) async {
     final db = await database;
     var result = await db.query(
       tableFavourite,
-      where: '$columnId = ?',
+      where: '$_columnId = ?',
       whereArgs: [id],
     );
     return result.isNotEmpty ? true : false;
   }
 
   ///Удаление записи из базы данных
-  deleteProduct(int id) async {
+  deleteProduct(int id, String tableName) async {
     final db = await database;
     await db.delete(
-      tableFavourite,
-      where: '$columnId = ?',
+      tableName,
+      where: '$_columnId = ?',
       whereArgs: [id],
     );
-    notifyListeners();
   }
 
   ///Закрытие соединения с базой данных

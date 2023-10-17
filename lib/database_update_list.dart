@@ -5,8 +5,13 @@ import 'package:sqflite/sqflite.dart';
 class DatabaseUpdateList {
   var mainDb = DatabaseApp.db;
 
-  final String _tableSoppingCart = 'shoppingCart';
-  final String _columnQuantityProduct = 'quantityProduct';
+  final String _columnNameProduct = 'nameProduct';
+  final String _columnDescriptionProduct = 'descriptionProduct';
+  final String _columnImgProduct = 'imgProduct';
+  final String _columnPriceProduct = 'priceProduct';
+
+  // final String _tableSoppingCart = 'shoppingCart';
+  // final String _columnQuantityProduct = 'quantityProduct';
 
   dbOperationsVersion(Database db, int version) async {
     switch (version) {
@@ -26,10 +31,10 @@ class DatabaseUpdateList {
           CREATE TABLE ${mainDb.tableFavourite}
           (
             ${mainDb.columnId} INTEGER PRIMARY KEY,
-            ${mainDb.columnDescriptionProduct} TEXT,
-            ${mainDb.columnNameProduct} VARCHAR(100) NOT NULL,
-            ${mainDb.columnImgProduct} VARCHAR(100) NOT NULL,
-            ${mainDb.columnPriceProduct} INTEGER NOT NULL
+            $_columnDescriptionProduct TEXT,
+            $_columnNameProduct VARCHAR(100) NOT NULL,
+            $_columnImgProduct VARCHAR(100) NOT NULL,
+            $_columnPriceProduct INTEGER NOT NULL
           )
           ''');
   }

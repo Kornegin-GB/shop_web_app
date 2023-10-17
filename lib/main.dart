@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_web_app/adding_products/shopping_cart.dart';
-import 'package:shop_web_app/database_app.dart';
+import 'package:shop_web_app/favourites_page/add_favourites_product.dart';
 import 'package:shop_web_app/favourites_page/favourites_screen.dart';
 import 'package:shop_web_app/main_page_app.dart';
 import 'package:shop_web_app/product_list_page/product_list_screen.dart';
@@ -12,7 +12,7 @@ void main() => runApp(
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => ShoppingCart()),
-          ChangeNotifierProvider(create: (context) => DatabaseApp.db),
+          ChangeNotifierProvider(create: (context) => AddFavouritesProduct()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
