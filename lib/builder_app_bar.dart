@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_web_app/adding_products/shopping_cart.dart';
+import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
 
 class BuilderAppBar extends StatelessWidget {
-  BuilderAppBar({super.key, required this.titleApp, required this.withCart});
+  const BuilderAppBar({super.key, required this.titleApp, required this
+      .withCart,});
 
-  bool withCart;
+  final bool withCart;
   final String titleApp;
 
   @override
@@ -27,7 +28,7 @@ class BuilderAppBar extends StatelessWidget {
                       size: 30,
                     ),
                   ),
-                  Consumer<ShoppingCart>(
+                  Consumer<AddShoppingCart>(
                     builder: (context, value, child) =>
                         (value.getCounterProducts() > 0)
                             ? Container(

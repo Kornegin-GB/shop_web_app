@@ -1,36 +1,40 @@
-///Класс описывает продукт
-class Product {
+///Класс описывает модель корзины
+class ShoppingCart{
+  final int id;
   final int productId;
   final String nameProduct;
-  final String descriptionProduct;
   final String imgProduct;
   final int priceProduct;
+  final int quantityProduct;
 
-  Product({
+  ShoppingCart({
+    required this.id,
     required this.productId,
     required this.nameProduct,
-    required this.descriptionProduct,
     required this.priceProduct,
     required this.imgProduct,
+    required this.quantityProduct
   });
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'productId': productId,
-      'descriptionProduct': descriptionProduct,
       'nameProduct': nameProduct,
       'priceProduct': priceProduct,
-      'imgProduct': imgProduct
+      'imgProduct': imgProduct,
+      'quantityProduct': quantityProduct
     };
   }
 
-  factory Product.fromJson(Map<String, dynamic> parsJson) {
-    return Product(
+  factory ShoppingCart.fromJson(Map<String, dynamic> parsJson) {
+    return ShoppingCart(
+      id: parsJson['id'],
       productId: parsJson['productId'],
       nameProduct: parsJson['nameProduct'],
-      descriptionProduct: parsJson['descriptionProduct'],
       priceProduct: parsJson['priceProduct'],
       imgProduct: parsJson['imgProduct'],
+      quantityProduct: parsJson['quantityProduct'],
     );
   }
 }

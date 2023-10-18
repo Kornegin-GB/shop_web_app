@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:shop_web_app/adding_products/product.dart';
 
 /// Класс описывает добавление товара в корзину
-class ShoppingCart extends ChangeNotifier {
-  static final ShoppingCart _instance = ShoppingCart._internal();
+class AddShoppingCart extends ChangeNotifier {
+  static final AddShoppingCart _instance = AddShoppingCart._internal();
 
   Map<Product, int> products = {};
 
-  factory ShoppingCart() {
+  factory AddShoppingCart() {
     return _instance;
   }
 
-  ShoppingCart._internal();
+  AddShoppingCart._internal();
 
   /// Формируем список товаров добавляемых в корзину
   Map<Product, int> setProduct(Product product) {

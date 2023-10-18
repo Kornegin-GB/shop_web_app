@@ -14,7 +14,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: BuilderAppBar(titleApp: 'Favourites', withCart: true),
+          title: const BuilderAppBar(titleApp: 'Favourites', withCart: true),
         ),
         body: const FavouritesFutureBuilder());
   }

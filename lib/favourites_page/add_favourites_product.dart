@@ -19,7 +19,7 @@ class AddFavouritesProduct extends ChangeNotifier {
 
   ///Получение списка добавленных продуктов в избранное
   Future<List<Product>> getListFavourite() async {
-    return await mainDb.showAllProducts(mainDb.tableFavourite);
+    return await mainDb.showAllFavourites();
   }
 
   ///Проверить существует ли продукт в избранном

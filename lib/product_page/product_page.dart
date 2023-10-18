@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_web_app/adding_products/product.dart';
-import 'package:shop_web_app/adding_products/shopping_cart.dart';
+import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
 import 'package:shop_web_app/favourites_page/add_favourites_product.dart';
 
 /// Класс рисует страницу одного товара
@@ -23,7 +23,7 @@ class _ProductPageState extends State<ProductPage> {
   @override
   void initState() {
     AddFavouritesProduct()
-        .isNotEmptyFavouriteProduct(widget.product.id)
+        .isNotEmptyFavouriteProduct(widget.product.productId)
         .then((value) {
       isFavourite = value;
       setState(() {});
@@ -53,7 +53,7 @@ class _ProductPageState extends State<ProductPage> {
           children: [
             ElevatedButton(
               onPressed: () {
-                ShoppingCart().setProduct(widget.product);
+                AddShoppingCart().setProduct(widget.product);
               },
               style: ElevatedButton.styleFrom(
                 elevation: 5.0,
@@ -69,7 +69,7 @@ class _ProductPageState extends State<ProductPage> {
                   ? IconButton(
                       onPressed: () {
                         isFavourite = false;
-                        value.deleteFavouriteProduct(widget.product.id);
+                        value.deleteFavouriteProduct(widget.product.productId);
                         setState(() {});
                       },
                       icon: const Icon(Icons.favorite,

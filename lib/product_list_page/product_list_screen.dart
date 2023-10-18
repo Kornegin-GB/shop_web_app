@@ -29,7 +29,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: BuilderAppBar(titleApp: 'Shop web app', withCart: true),
+        title: const BuilderAppBar(titleApp: 'Shop web app', withCart: true),
       ),
       body: ListView.builder(
         itemCount: products.length,

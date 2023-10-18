@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_web_app/adding_products/product.dart';
-import 'package:shop_web_app/adding_products/shopping_cart.dart';
+import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
 
 /// Формирование отображения карточки товара на странице
 class ShoppingCartCardWidget extends StatelessWidget {
-  ShoppingCartCardWidget({
+  const ShoppingCartCardWidget({
     super.key,
     required this.product,
   });
 
-  Product product;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class ShoppingCartCardWidget extends StatelessWidget {
                   ),
                   const Padding(padding: EdgeInsets.all(5)),
                   Text('Цена: ${product.priceProduct.toString()} р.'),
-                  Consumer<ShoppingCart>(
+                  Consumer<AddShoppingCart>(
                     builder: (context, value, child) => Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
