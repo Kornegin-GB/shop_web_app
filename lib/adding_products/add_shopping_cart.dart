@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shop_web_app/adding_products/product.dart';
+import 'package:shop_web_app/shopping_cart_page/shopping_cart.dart';
 
 /// Класс описывает добавление товара в корзину
 class AddShoppingCart extends ChangeNotifier {
   static final AddShoppingCart _instance = AddShoppingCart._internal();
 
-  Map<Product, int> products = {};
+  List<ShoppingCart> products = [];
 
   factory AddShoppingCart() {
     return _instance;
@@ -14,23 +15,41 @@ class AddShoppingCart extends ChangeNotifier {
   AddShoppingCart._internal();
 
   /// Формируем список товаров добавляемых в корзину
-  Map<Product, int> setProduct(Product product) {
-    products.update(product, (value) => ++value, ifAbsent: () => 1);
+  List<ShoppingCart> setProduct(Product product) {
+    int quantity = 0;
+    if (products.any((element) => element.productId == product.productId)) {
+      ShoppingCart productCart = products
+          .firstWhere((element) => element.productId == product.productId);
+      productCart.quantityProduct++;
+    } else {
+      products.add(ShoppingCart(
+        productId: product.productId,
+        nameProduct: product.nameProduct,
+        priceProduct: product.priceProduct,
+        imgProduct: product.imgProduct,
+        quantityProduct: ++quantity,
+      ));
+    }
     notifyListeners();
     return products;
   }
 
+  ///Получение количества одного продукта
+  int getQuantity(ShoppingCart product) {
+    return product.quantityProduct;
+  }
+
   ///Метод увеличения количества добавленного товара
-  void quantityUp(Product product) {
-    products.update(product, (value) => ++value);
+  void quantityUp(ShoppingCart product) {
+    product.quantityProduct++;
     notifyListeners();
   }
 
   ///Метод уменьшения количества добавленного товара
   ///Если счётчик достиг нуля то продукт удаляется ипз корзины
-  void quantityDown(Product product) {
-    products.update(product, (value) => --value);
-    if (products[product] == 0) {
+  void quantityDown(ShoppingCart product) {
+    product.quantityProduct--;
+    if (product.quantityProduct == 0) {
       products.remove(product);
     }
     notifyListeners();
@@ -39,14 +58,14 @@ class AddShoppingCart extends ChangeNotifier {
   ///Подсчёт суммы добавляемого товара в корзину
   int getSumProducts() {
     int sumProducts = 0;
-    for (var product in products.keys) {
-      sumProducts += product.priceProduct * products[product]!;
+    for (var product in products) {
+      sumProducts += product.priceProduct * product.quantityProduct;
     }
     return sumProducts;
   }
 
   ///Возвращаем список добавленных товаров
-  Map<Product, int> getProduct() {
+  List<ShoppingCart> getProduct() {
     return products;
   }
 
@@ -56,11 +75,11 @@ class AddShoppingCart extends ChangeNotifier {
     notifyListeners();
   }
 
-  ///Метод счётчик, подсчёт количество товаров в корзине
+  ///Метод счётчик, подсчёт общего количества товаров в корзине
   int getCounterProducts() {
     int count = 0;
-    for (int quantityProduct in products.values) {
-      count += quantityProduct;
+    for (var countProduct in products) {
+      count += countProduct.quantityProduct;
     }
     return count;
   }

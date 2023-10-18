@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_web_app/adding_products/product.dart';
 import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
+import 'package:shop_web_app/shopping_cart_page/shopping_cart.dart';
 
 /// Формирование отображения карточки товара на странице
 class ShoppingCartCardWidget extends StatelessWidget {
@@ -10,7 +10,7 @@ class ShoppingCartCardWidget extends StatelessWidget {
     required this.product,
   });
 
-  final Product product;
+  final ShoppingCart product;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class ShoppingCartCardWidget extends StatelessWidget {
                           padding: EdgeInsets.only(left: 15),
                         ),
                         Text(
-                          '${value.products[product]}',
+                          '${value.getQuantity(product)}',
                           style: const TextStyle(fontSize: 18),
                         ),
                         const Padding(

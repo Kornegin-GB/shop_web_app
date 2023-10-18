@@ -1,20 +1,19 @@
 ///Класс описывает модель корзины
-class ShoppingCart{
-  final int id;
+class ShoppingCart {
+  final int? id;
   final int productId;
   final String nameProduct;
   final String imgProduct;
   final int priceProduct;
-  final int quantityProduct;
+  late int quantityProduct;
 
-  ShoppingCart({
-    required this.id,
-    required this.productId,
-    required this.nameProduct,
-    required this.priceProduct,
-    required this.imgProduct,
-    required this.quantityProduct
-  });
+  ShoppingCart(
+      {this.id,
+      required this.productId,
+      required this.nameProduct,
+      required this.priceProduct,
+      required this.imgProduct,
+      required this.quantityProduct});
 
   Map<String, dynamic> toMap() {
     return {

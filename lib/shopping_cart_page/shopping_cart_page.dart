@@ -16,7 +16,7 @@ class ShoppingCartPage extends StatelessWidget {
         itemCount: value.products.length,
         itemBuilder: (BuildContext context, int index) {
           return ShoppingCartCardWidget(
-              product: value.products.keys.elementAt(index));
+              product: value.products.elementAt(index));
         },
       ),
     );
