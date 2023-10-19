@@ -3,8 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
 
 class BuilderAppBar extends StatelessWidget {
-  const BuilderAppBar({super.key, required this.titleApp, required this
-      .withCart,});
+  const BuilderAppBar({
+    super.key,
+    required this.titleApp,
+    required this.withCart,
+  });
 
   final bool withCart;
   final String titleApp;

@@ -7,10 +7,11 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseApp {
   final String _databaseName = 'favourite_database.db';
-  final int _databaseVersion = 1;
+  final int _databaseVersion = 2;
   final String _columnProductId = 'productId';
   final String _tableFavourite = 'favourites';
   final String _tableSoppingCart = 'shoppingCart';
+
 
   String get columnProductId => _columnProductId;
 
@@ -25,10 +26,10 @@ class DatabaseApp {
   // ignore: prefer_typing_uninitialized_variables
   var _database;
 
-  Future get database async{
-    if(_database != null){
+  Future get database async {
+    if (_database != null) {
       return _database;
-    }else{
+    } else {
       _database = await initDatabase();
       return _database;
     }
@@ -62,6 +63,16 @@ class DatabaseApp {
       tableName,
       item.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  updateProduct(var item, String tableName) async {
+    final db = await database;
+    return await db.update(
+      tableName,
+      item.toMap(),
+      where: '$_columnProductId = ?',
+      whereArgs: [item.productId],
     );
   }
 
@@ -117,7 +128,7 @@ class DatabaseApp {
     await db.delete(tableName);
   }
 
-  ///Закрытие соединения с базой данных
+///Закрытие соединения с базой данных
 // closeDB() async {
 //   final db = await database;
 //   db.close();
