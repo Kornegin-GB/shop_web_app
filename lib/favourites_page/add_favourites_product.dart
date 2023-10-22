@@ -24,7 +24,6 @@ class AddFavouritesProduct extends ChangeNotifier {
 
   ///Проверить существует ли продукт в избранном
   Future<bool> isNotEmptyFavouriteProduct(int id) async {
-    notifyListeners();
     return await mainDb.isNotEmptyProduct(id);
   }
 }
