@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_web_app/adding_products/product.dart';
 import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
+import 'package:shop_web_app/adding_products/product.dart';
 import 'package:shop_web_app/favourites_page/add_favourites_product.dart';
 
 /// Класс рисует карточку товара списка
@@ -23,7 +23,9 @@ class _ProductListCardState extends State<ProductListCard> {
         .isNotEmptyFavouriteProduct(widget.product.productId)
         .then((value) {
       isFavourite = value;
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
     super.initState();
   }
@@ -31,7 +33,10 @@ class _ProductListCardState extends State<ProductListCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme
+          .of(context)
+          .colorScheme
+          .background,
       child: InkWell(
         onTap: () {
           Navigator.pushNamed(context, '/product', arguments: widget.product);
@@ -78,27 +83,29 @@ class _ProductListCardState extends State<ProductListCard> {
                   ),
                 ),
                 Consumer<AddFavouritesProduct>(
-                  builder: (context, value, child) => (isFavourite)
+                  builder: (context, value, child) =>
+                  (isFavourite)
                       ? IconButton(
-                          onPressed: () {
-                            isFavourite = false;
-                            value.deleteFavouriteProduct(widget.product.productId);
-                          },
-                          icon: const Icon(
-                            Icons.favorite,
-                            color: Colors.blueGrey,
-                          ),
-                        )
+                    onPressed: () {
+                      isFavourite = false;
+                      value.deleteFavouriteProduct(
+                          widget.product.productId);
+                    },
+                    icon: const Icon(
+                      Icons.favorite,
+                      color: Colors.blueGrey,
+                    ),
+                  )
                       : IconButton(
-                          onPressed: () {
-                            isFavourite = true;
-                            value.addFavouriteProduct(widget.product);
-                          },
-                          icon: const Icon(
-                            Icons.favorite_border,
-                            color: Colors.blueGrey,
-                          ),
-                        ),
+                    onPressed: () {
+                      isFavourite = true;
+                      value.addFavouriteProduct(widget.product);
+                    },
+                    icon: const Icon(
+                      Icons.favorite_border,
+                      color: Colors.blueGrey,
+                    ),
+                  ),
                 ),
               ],
             )
