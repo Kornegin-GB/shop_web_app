@@ -2,63 +2,63 @@
   "products": [
     {
       "productId": 1,
-      "imgProduct": "apple.jpeg",
+      "imgProduct": "apple.webp",
       "nameProduct": "Яблоки",
       "descriptionProduct": "сочный плод яблони, который употребляется в пищу в свежем и запеченном виде, служит сырьём в кулинарии и для приготовления напитков.",
       "priceProduct": 60
     },
     {
       "productId": 2,
-      "imgProduct": "pear.jpeg",
+      "imgProduct": "pear.webp",
       "nameProduct": "Груши",
       "descriptionProduct": "Груша пришла к нам из доисторической эпохи. Родина её точно не установлена. Культивированная груша происходит, по-видимому, из Древней Греции (за 1000 лет до н. э.).",
       "priceProduct": 120
     },
     {
       "productId": 3,
-      "imgProduct": "nectarines.jpg",
+      "imgProduct": "nectarines.webp",
       "nameProduct": "Никтарины",
       "descriptionProduct": "Сорта нектарина представлены различными эколого-географическими и помологическими группами, подгруппами и экотипами[2].",
       "priceProduct": 90
     },
     {
       "productId": 4,
-      "imgProduct": "peaches.jpg",
+      "imgProduct": "peaches.webp",
       "nameProduct": "Персики",
       "descriptionProduct": "Плод персика обыкновенного представляет собой мягкую и сочную мясистую костянку.",
       "priceProduct": 50
     },
     {
       "productId": 5,
-      "imgProduct": "apricot.jpg",
+      "imgProduct": "apricot.webp",
       "nameProduct": "Абрикосы",
       "descriptionProduct": "Плод является костянкой. Похож на небольшой персик от 1,5 до 2,5 см в диаметре. Цвет варьируется от жёлтого до оранжевого, часто с красным оттенком на стороне, наиболее подверженной воздействию солнца",
       "priceProduct": 80
     },
     {
       "productId": 6,
-      "imgProduct": "bananas.jpg",
+      "imgProduct": "bananas.webp",
       "nameProduct": "Бананы",
       "descriptionProduct": "Бананом называют плоды травянистого растения банан (musa), которое в высоту нередко достигает 6-9 метров, поэтому многие ошибочно считают, что бананы растут на пальме.",
       "priceProduct": 150
     },
     {
       "productId": 7,
-      "imgProduct": "grapefruit.jpeg",
+      "imgProduct": "grapefruit.webp",
       "nameProduct": "Грейпфрут",
       "descriptionProduct": "Плод около 10—15 см в диаметре с кисло-сладкой горьковатой мякотью, разделённой на дольки. Цвет мякоти варьирует в зависимости от сорта от светло-жёлтого до красно-рубинового. Кожура плодов жёлтая, у сортов с красной мякотью может приобретать красноватый оттенок.",
       "priceProduct": 90
     },
     {
       "productId": 8,
-      "imgProduct": "kiwi.jpg",
+      "imgProduct": "kiwi.webp",
       "nameProduct": "Киви",
       "descriptionProduct": "Киви растут на огромных кустах высотой до 9 м, молодые листья которых покрыты красными волосками. Да и на самих коричневых плодах волосков хватает. Их ярко-зеленая мякоть со съедобными мелкими  семенами остается твердой до тех пор, пока полностью не созреет.",
       "priceProduct": 50
     },
     {
       "productId": 9,
-      "imgProduct": "oranges.jpg",
+      "imgProduct": "oranges.webp",
       "nameProduct": "Апельсины",
       "descriptionProduct": "Апельсин представляет собой круглый цитрусовый фрукт с оранжевой кожурой, иногда с красными прожилками. Мякоть у него кисловатая, светло-оранжевого или (у апельсинов-корольков) тёмно-красного цвета, разделённая на дольки. Бывают апельсины с косточками и без них.",
       "priceProduct": 80
