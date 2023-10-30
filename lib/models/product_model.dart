@@ -1,4 +1,4 @@
-///Класс описывает продукт
+///Класс описывает модель продукта
 class ProductModel {
   final int productId;
   final String nameProduct;

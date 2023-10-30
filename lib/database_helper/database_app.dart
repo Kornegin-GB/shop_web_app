@@ -34,7 +34,7 @@ class DatabaseApp {
     }
   }
 
-  ///Создание базы данных
+  ///Инициализация и создание базы данных
   Future<Database> _initDatabase() async {
     String path = join(await getDatabasesPath(), _databaseName);
     WidgetsFlutterBinding.ensureInitialized();
@@ -55,7 +55,8 @@ class DatabaseApp {
     );
   }
 
-  ///Внесение записи в базу данных
+  ///Внесение продукта в [item] (корзины или избранного) в таблицу [tableName]
+  ///базы данных
   insertProduct(var item, String tableName) async {
     final db = await database;
     return await db.insert(
@@ -65,6 +66,8 @@ class DatabaseApp {
     );
   }
 
+  ///Обновление продукта [item] (корзины или избранного) в таблице [tableName]
+  ///базы данных
   updateProduct(var item, String tableName) async {
     final db = await database;
     return await db.update(
@@ -93,7 +96,9 @@ class DatabaseApp {
     });
   }
 
-  ///Проверяем есть ли запись в базе данных
+  ///Проверяем есть ли продукт в избранном в базе данных по [id]
+  ///
+  /// Метод возвращает `true` если запись существует
   productExists(int id) async {
     final db = await database;
     var result = await db.query(
@@ -101,17 +106,10 @@ class DatabaseApp {
       where: '$_columnProductId = ?',
       whereArgs: [id],
     );
-    return result.isNotEmpty; //Если запись есть то true
+    return result.isNotEmpty;
   }
 
-  ///Проверяем пуста ли таблица
-  // isEmptyTable() async {
-  //   final db = await database;
-  //   var result = await db.query(tableSoppingCart);
-  //   return result.isEmpty; // если пусто true
-  // }
-
-  ///Удаление записи из базы данных
+  ///Удаление записи из таблицы [tableName] базы данных по [id]
   deleteProduct(int id, String tableName) async {
     final db = await database;
     await db.delete(
@@ -121,15 +119,9 @@ class DatabaseApp {
     );
   }
 
-  ///Очистка таблицы
+  ///Очистка корзины продуктов в базе данных
   clearCartProduct() async {
     final db = await database;
     await db.delete(_tableSoppingCart);
   }
-
-  ///Закрытие соединения с базой данных
-// closeDB() async {
-//   final db = await database;
-//   db.close();
-// }
 }

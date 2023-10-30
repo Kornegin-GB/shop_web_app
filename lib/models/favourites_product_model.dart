@@ -6,13 +6,13 @@ import 'package:shop_web_app/models/product_model.dart';
 class FavouritesProductModel extends ChangeNotifier {
   var mainDb = DatabaseApp.db;
 
-  ///Добавление продукта в избранное
+  ///Добавление [product] в избранное
   void addFavouriteProduct(ProductModel product) {
     mainDb.insertProduct(product, mainDb.tableFavourite);
     notifyListeners();
   }
 
-  ///Удаление продукта из избранного
+  ///Удаление продукта из избранного по его [id]
   void deleteFavouriteProduct(int id) {
     mainDb.deleteProduct(id, mainDb.tableFavourite);
     notifyListeners();
@@ -23,7 +23,7 @@ class FavouritesProductModel extends ChangeNotifier {
     return await mainDb.getAllFavourites();
   }
 
-  ///Проверить существует ли продукт в избранном
+  ///Проверить существует ли продукт в избранном по [id]
   Future<bool> favouriteProductExists(int id) async {
     return await mainDb.productExists(id);
   }

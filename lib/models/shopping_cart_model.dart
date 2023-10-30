@@ -3,7 +3,7 @@ import 'package:shop_web_app/database_helper/database_app.dart';
 import 'package:shop_web_app/models/cart_product_model.dart';
 import 'package:shop_web_app/models/product_model.dart';
 
-/// Класс описывает добавление товара в корзину
+/// Класс описывает добавление товара в корзину (модель корзины)
 class ShoppingCartModel extends ChangeNotifier {
   static final ShoppingCartModel _instance = ShoppingCartModel._internal();
   final mainDB = DatabaseApp.db;
@@ -16,7 +16,7 @@ class ShoppingCartModel extends ChangeNotifier {
 
   ShoppingCartModel._internal();
 
-  ///Формируем продукт в корзине
+  ///Формируем [product] в корзине c изменением [quantity]
   CartProductModel _toCartProduct(ProductModel product, int quantity) {
     return CartProductModel(
       productId: product.productId,
@@ -27,7 +27,7 @@ class ShoppingCartModel extends ChangeNotifier {
     );
   }
 
-  /// Формируем список товаров добавляемых в корзину
+  /// Формируем список [product] добавляемых в корзину
   List<CartProductModel> addProduct(ProductModel product) {
     int quantity = 0;
     if (products.any((element) => element.productId == product.productId)) {
@@ -44,20 +44,21 @@ class ShoppingCartModel extends ChangeNotifier {
     return products;
   }
 
-  ///Получение количества одного продукта
+  ///Получение количества одного [product] в корзину
   int getQuantity(CartProductModel product) {
     return product.quantityProduct;
   }
 
-  ///Метод увеличения количества добавленного товара
+  ///Метод увеличения количества добавленного [product] в корзину
   void quantityUp(CartProductModel product) {
     product.quantityProduct++;
     mainDB.updateProduct(product, mainDB.tableSoppingCart);
     notifyListeners();
   }
 
-  ///Метод уменьшения количества добавленного товара
-  ///Если счётчик достиг нуля то продукт удаляется ипз корзины
+  ///Метод уменьшения количества добавленного [product] в корзину
+  ///
+  ///Если счётчик достиг нуля то [product] удаляется из корзины
   void quantityDown(CartProductModel product) {
     product.quantityProduct--;
     mainDB.updateProduct(product, mainDB.tableSoppingCart);
