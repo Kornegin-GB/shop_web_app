@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
 import 'package:shop_web_app/favourites_page/favourites_screen.dart';
+import 'package:shop_web_app/models/shopping_cart_model.dart';
 import 'package:shop_web_app/product_list_page/product_list_screen.dart';
 
 class MainPageApp extends StatefulWidget {
@@ -15,7 +15,7 @@ class _MainPageAppState extends State<MainPageApp> {
 
   @override
   void initState() {
-    AddShoppingCart().getProduct();
+    ShoppingCartModel().loadProduct();
     super.initState();
   }
 

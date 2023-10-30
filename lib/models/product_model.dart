@@ -1,12 +1,12 @@
 ///Класс описывает продукт
-class Product {
+class ProductModel {
   final int productId;
   final String nameProduct;
   final String descriptionProduct;
   final String imgProduct;
   final int priceProduct;
 
-  Product({
+  ProductModel({
     required this.productId,
     required this.nameProduct,
     required this.descriptionProduct,
@@ -24,8 +24,8 @@ class Product {
     };
   }
 
-  factory Product.fromJson(Map<String, dynamic> parsJson) {
-    return Product(
+  factory ProductModel.fromJson(Map<String, dynamic> parsJson) {
+    return ProductModel(
       productId: parsJson['productId'],
       nameProduct: parsJson['nameProduct'],
       descriptionProduct: parsJson['descriptionProduct'],

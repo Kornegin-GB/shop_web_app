@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
 import 'package:shop_web_app/builder_app_bar.dart';
+import 'package:shop_web_app/models/shopping_cart_model.dart';
 import 'package:shop_web_app/shopping_cart_page/bottom_sheet_builder.dart';
 import 'package:shop_web_app/shopping_cart_page/shopping_cart_page.dart';
 
@@ -20,7 +20,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
       appBar: AppBar(
         title: const BuilderAppBar(titleApp: 'Shopping cart', withCart: false),
       ),
-      body: Consumer<AddShoppingCart>(
+      body: Consumer<ShoppingCartModel>(
         builder: (context, value, child) => (value.products.isEmpty)
             ? const Center(
                 child: Text(

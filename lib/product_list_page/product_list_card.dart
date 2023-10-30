@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
-import 'package:shop_web_app/adding_products/product.dart';
-import 'package:shop_web_app/favourites_page/add_favourites_product.dart';
+import 'package:shop_web_app/models/favourites_product_model.dart';
+import 'package:shop_web_app/models/product_model.dart';
+import 'package:shop_web_app/models/shopping_cart_model.dart';
 
 /// Класс рисует карточку товара списка
 class ProductListCard extends StatefulWidget {
   const ProductListCard({super.key, required this.product});
 
-  final Product product;
+  final ProductModel product;
 
   @override
   State<ProductListCard> createState() => _ProductListCardState();
@@ -19,8 +19,8 @@ class _ProductListCardState extends State<ProductListCard> {
 
   @override
   void initState() {
-    AddFavouritesProduct()
-        .isNotEmptyFavouriteProduct(widget.product.productId)
+    FavouritesProductModel()
+        .favouriteProductExists(widget.product.productId)
         .then((value) {
       isFavourite = value;
       if (mounted) {
@@ -33,10 +33,7 @@ class _ProductListCardState extends State<ProductListCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme
-          .of(context)
-          .colorScheme
-          .background,
+      color: Theme.of(context).colorScheme.background,
       child: InkWell(
         onTap: () {
           Navigator.pushNamed(context, '/product', arguments: widget.product);
@@ -74,7 +71,7 @@ class _ProductListCardState extends State<ProductListCard> {
               children: [
                 IconButton(
                   onPressed: () {
-                    AddShoppingCart().setProduct(widget.product);
+                    ShoppingCartModel().addProduct(widget.product);
                   },
                   icon: const Icon(
                     Icons.add_shopping_cart,
@@ -82,30 +79,29 @@ class _ProductListCardState extends State<ProductListCard> {
                     color: Colors.blueGrey,
                   ),
                 ),
-                Consumer<AddFavouritesProduct>(
-                  builder: (context, value, child) =>
-                  (isFavourite)
+                Consumer<FavouritesProductModel>(
+                  builder: (context, value, child) => (isFavourite)
                       ? IconButton(
-                    onPressed: () {
-                      isFavourite = false;
-                      value.deleteFavouriteProduct(
-                          widget.product.productId);
-                    },
-                    icon: const Icon(
-                      Icons.favorite,
-                      color: Colors.blueGrey,
-                    ),
-                  )
+                          onPressed: () {
+                            isFavourite = false;
+                            value.deleteFavouriteProduct(
+                                widget.product.productId);
+                          },
+                          icon: const Icon(
+                            Icons.favorite,
+                            color: Colors.blueGrey,
+                          ),
+                        )
                       : IconButton(
-                    onPressed: () {
-                      isFavourite = true;
-                      value.addFavouriteProduct(widget.product);
-                    },
-                    icon: const Icon(
-                      Icons.favorite_border,
-                      color: Colors.blueGrey,
-                    ),
-                  ),
+                          onPressed: () {
+                            isFavourite = true;
+                            value.addFavouriteProduct(widget.product);
+                          },
+                          icon: const Icon(
+                            Icons.favorite_border,
+                            color: Colors.blueGrey,
+                          ),
+                        ),
                 ),
               ],
             )

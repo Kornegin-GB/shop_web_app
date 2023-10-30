@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
-import 'package:shop_web_app/adding_products/product.dart';
-import 'package:shop_web_app/database_update_list.dart';
-import 'package:shop_web_app/shopping_cart_page/shopping_cart.dart';
+import 'package:shop_web_app/database_helper/database_update_list.dart';
+import 'package:shop_web_app/models/cart_product_model.dart';
+import 'package:shop_web_app/models/product_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseApp {
@@ -11,7 +11,6 @@ class DatabaseApp {
   final String _columnProductId = 'productId';
   final String _tableFavourite = 'favourites';
   final String _tableSoppingCart = 'shoppingCart';
-
 
   String get columnProductId => _columnProductId;
 
@@ -30,13 +29,13 @@ class DatabaseApp {
     if (_database != null) {
       return _database;
     } else {
-      _database = await initDatabase();
+      _database = await _initDatabase();
       return _database;
     }
   }
 
   ///Создание базы данных
-  Future<Database> initDatabase() async {
+  Future<Database> _initDatabase() async {
     String path = join(await getDatabasesPath(), _databaseName);
     WidgetsFlutterBinding.ensureInitialized();
     return await openDatabase(
@@ -77,25 +76,25 @@ class DatabaseApp {
   }
 
   ///Чтение всех записей избранного из базы данных
-  showAllFavourites() async {
+  getAllFavourites() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(tableFavourite);
     return List.generate(maps.length, (i) {
-      return Product.fromJson(maps[i]);
+      return ProductModel.fromJson(maps[i]);
     });
   }
 
   ///Чтение всех записей корзины из базы данных
-  showAllProductsShoppingCart() async {
+  getAllCartProduct() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(tableSoppingCart);
     return List.generate(maps.length, (i) {
-      return ShoppingCart.fromJson(maps[i]);
+      return CartProductModel.fromJson(maps[i]);
     });
   }
 
   ///Проверяем есть ли запись в базе данных
-  isNotEmptyProduct(int id) async {
+  productExists(int id) async {
     final db = await database;
     var result = await db.query(
       tableFavourite,
@@ -106,11 +105,11 @@ class DatabaseApp {
   }
 
   ///Проверяем пуста ли таблица
-  isEmptyTable() async {
-    final db = await database;
-    var result = await db.query(tableSoppingCart);
-    return result.isEmpty; // если пусто true
-  }
+  // isEmptyTable() async {
+  //   final db = await database;
+  //   var result = await db.query(tableSoppingCart);
+  //   return result.isEmpty; // если пусто true
+  // }
 
   ///Удаление записи из базы данных
   deleteProduct(int id, String tableName) async {
@@ -123,12 +122,12 @@ class DatabaseApp {
   }
 
   ///Очистка таблицы
-  deleteTable(String tableName) async {
+  clearCartProduct() async {
     final db = await database;
-    await db.delete(tableName);
+    await db.delete(_tableSoppingCart);
   }
 
-///Закрытие соединения с базой данных
+  ///Закрытие соединения с базой данных
 // closeDB() async {
 //   final db = await database;
 //   db.close();

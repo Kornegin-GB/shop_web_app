@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_web_app/adding_products/product.dart';
-import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
-import 'package:shop_web_app/favourites_page/add_favourites_product.dart';
+import 'package:shop_web_app/models/favourites_product_model.dart';
+import 'package:shop_web_app/models/product_model.dart';
+import 'package:shop_web_app/models/shopping_cart_model.dart';
 
 class FavouritesCard extends StatefulWidget {
   const FavouritesCard({
@@ -10,7 +10,7 @@ class FavouritesCard extends StatefulWidget {
     required this.product,
   });
 
-  final Product product;
+  final ProductModel product;
 
   @override
   State<FavouritesCard> createState() => _FavouritesCardState();
@@ -54,7 +54,7 @@ class _FavouritesCardState extends State<FavouritesCard> {
             children: [
               IconButton(
                 onPressed: () {
-                  AddShoppingCart().setProduct(widget.product);
+                  ShoppingCartModel().addProduct(widget.product);
                 },
                 icon: const Icon(
                   Icons.add_shopping_cart,
@@ -62,7 +62,7 @@ class _FavouritesCardState extends State<FavouritesCard> {
                   color: Colors.blueGrey,
                 ),
               ),
-              Consumer<AddFavouritesProduct>(
+              Consumer<FavouritesProductModel>(
                 builder: (context, value, child) => IconButton(
                   onPressed: () {
                     value.deleteFavouriteProduct(widget.product.productId);

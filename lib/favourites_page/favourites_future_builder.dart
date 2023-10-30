@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_web_app/adding_products/product.dart';
-import 'package:shop_web_app/favourites_page/add_favourites_product.dart';
 import 'package:shop_web_app/favourites_page/favourites_card.dart';
+import 'package:shop_web_app/models/favourites_product_model.dart';
+import 'package:shop_web_app/models/product_model.dart';
 
 class FavouritesFutureBuilder extends StatelessWidget {
   const FavouritesFutureBuilder({
@@ -11,7 +11,7 @@ class FavouritesFutureBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AddFavouritesProduct>(
+    return Consumer<FavouritesProductModel>(
       builder: (context, value, child) => FutureBuilder(
         future: value.getListFavourite(),
         builder: (context, snapshot) {
@@ -19,7 +19,7 @@ class FavouritesFutureBuilder extends StatelessWidget {
           if (snapshot.connectionState != ConnectionState.done) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            final products = snapshot.data as List<Product>;
+            final products = snapshot.data as List<ProductModel>;
             return ListView.builder(
               itemCount: products.length,
               itemBuilder: (BuildContext context, int index) {

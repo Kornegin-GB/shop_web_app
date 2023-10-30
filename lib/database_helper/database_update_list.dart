@@ -1,4 +1,4 @@
-import 'package:shop_web_app/database_app.dart';
+import 'package:shop_web_app/database_helper/database_app.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseUpdateList {

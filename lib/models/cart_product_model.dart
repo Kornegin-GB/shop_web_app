@@ -1,5 +1,5 @@
 ///Класс описывает модель корзины
-class ShoppingCart {
+class CartProductModel {
   final int? id;
   final int productId;
   final String nameProduct;
@@ -7,7 +7,7 @@ class ShoppingCart {
   final int priceProduct;
   late int quantityProduct;
 
-  ShoppingCart(
+  CartProductModel(
       {this.id,
       required this.productId,
       required this.nameProduct,
@@ -25,8 +25,8 @@ class ShoppingCart {
     };
   }
 
-  factory ShoppingCart.fromJson(Map<String, dynamic> parsJson) {
-    return ShoppingCart(
+  factory CartProductModel.fromJson(Map<String, dynamic> parsJson) {
+    return CartProductModel(
       id: parsJson['id'],
       productId: parsJson['productId'],
       nameProduct: parsJson['nameProduct'],

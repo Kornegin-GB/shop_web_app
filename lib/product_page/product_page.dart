@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_web_app/adding_products/product.dart';
-import 'package:shop_web_app/adding_products/add_shopping_cart.dart';
-import 'package:shop_web_app/favourites_page/add_favourites_product.dart';
+import 'package:shop_web_app/models/favourites_product_model.dart';
+import 'package:shop_web_app/models/product_model.dart';
+import 'package:shop_web_app/models/shopping_cart_model.dart';
 
 /// Класс рисует страницу одного товара
 class ProductPage extends StatefulWidget {
@@ -11,7 +11,7 @@ class ProductPage extends StatefulWidget {
     required this.product,
   });
 
-  final Product product;
+  final ProductModel product;
 
   @override
   State<ProductPage> createState() => _ProductPageState();
@@ -22,8 +22,8 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   void initState() {
-    AddFavouritesProduct()
-        .isNotEmptyFavouriteProduct(widget.product.productId)
+    FavouritesProductModel()
+        .favouriteProductExists(widget.product.productId)
         .then((value) {
       isFavourite = value;
       setState(() {});
@@ -53,7 +53,7 @@ class _ProductPageState extends State<ProductPage> {
           children: [
             ElevatedButton(
               onPressed: () {
-                AddShoppingCart().setProduct(widget.product);
+                ShoppingCartModel().addProduct(widget.product);
               },
               style: ElevatedButton.styleFrom(
                 elevation: 5.0,
@@ -64,7 +64,7 @@ class _ProductPageState extends State<ProductPage> {
               ),
               child: const Text('Add to cart'),
             ),
-            Consumer<AddFavouritesProduct>(
+            Consumer<FavouritesProductModel>(
               builder: (context, value, child) => (isFavourite)
                   ? IconButton(
                       onPressed: () {

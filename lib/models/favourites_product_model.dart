@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shop_web_app/adding_products/product.dart';
-import 'package:shop_web_app/database_app.dart';
+import 'package:shop_web_app/database_helper/database_app.dart';
+import 'package:shop_web_app/models/product_model.dart';
 
-class AddFavouritesProduct extends ChangeNotifier {
+///Класс описывает добавление продуктов в избранное (модель избранного)
+class FavouritesProductModel extends ChangeNotifier {
   var mainDb = DatabaseApp.db;
 
   ///Добавление продукта в избранное
-  void addFavouriteProduct(Product product) {
+  void addFavouriteProduct(ProductModel product) {
     mainDb.insertProduct(product, mainDb.tableFavourite);
     notifyListeners();
   }
@@ -18,12 +19,12 @@ class AddFavouritesProduct extends ChangeNotifier {
   }
 
   ///Получение списка добавленных продуктов в избранное
-  Future<List<Product>> getListFavourite() async {
-    return await mainDb.showAllFavourites();
+  Future<List<ProductModel>> getListFavourite() async {
+    return await mainDb.getAllFavourites();
   }
 
   ///Проверить существует ли продукт в избранном
-  Future<bool> isNotEmptyFavouriteProduct(int id) async {
-    return await mainDb.isNotEmptyProduct(id);
+  Future<bool> favouriteProductExists(int id) async {
+    return await mainDb.productExists(id);
   }
 }
