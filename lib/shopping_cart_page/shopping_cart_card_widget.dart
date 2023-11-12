@@ -46,14 +46,14 @@ class ShoppingCartCardWidget extends StatelessWidget {
                           },
                         ),
                         const Padding(
-                          padding: EdgeInsets.only(left: 15),
+                          padding: EdgeInsets.only(left: 10),
                         ),
                         Text(
                           '${value.getQuantity(product)}',
                           style: const TextStyle(fontSize: 18),
                         ),
                         const Padding(
-                          padding: EdgeInsets.only(right: 15),
+                          padding: EdgeInsets.only(right: 10),
                         ),
                         IconButton(
                           icon: const Icon(Icons.add, size: 18),
@@ -63,11 +63,19 @@ class ShoppingCartCardWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
           ),
+          IconButton(
+              onPressed: () {
+                ShoppingCartModel().deleteProduct(product);
+              },
+              icon: const Icon(
+                Icons.delete,
+                color: Colors.blueGrey,
+              )),
         ],
       ),
     );

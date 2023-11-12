@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_web_app/models/favourites_product_model.dart';
 import 'package:shop_web_app/models/product_model.dart';
 import 'package:shop_web_app/models/shopping_cart_model.dart';
+import 'package:shop_web_app/models/user_authorization_model.dart';
 
 /// Класс рисует карточку товара списка
 class ProductListCard extends StatefulWidget {
@@ -16,17 +17,23 @@ class ProductListCard extends StatefulWidget {
 
 class _ProductListCardState extends State<ProductListCard> {
   late bool isFavourite = false;
+  bool isAuthorized = false;
 
   @override
   void initState() {
-    FavouritesProductModel()
-        .favouriteProductExists(widget.product.productId)
-        .then((value) {
-      isFavourite = value;
-      if (mounted) {
-        setState(() {});
-      }
-    });
+    isAuthorized = UserAuthorizationModel().isAuthenticationUser;
+    int? currentUserId = UserAuthorizationModel().currentUser?.userId;
+    if (currentUserId != null) {
+      FavouritesProductModel()
+          .favouriteProductExists(widget.product.productId, currentUserId)
+          .then((value) {
+        isFavourite = value;
+        if (mounted) {
+          setState(() {});
+        }
+      });
+    }
+    setState(() {});
     super.initState();
   }
 
@@ -67,44 +74,46 @@ class _ProductListCardState extends State<ProductListCard> {
                 ),
               ),
             ),
-            Column(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    ShoppingCartModel().addProduct(widget.product);
-                  },
-                  icon: const Icon(
-                    Icons.add_shopping_cart,
-                    size: 32,
-                    color: Colors.blueGrey,
-                  ),
-                ),
-                Consumer<FavouritesProductModel>(
-                  builder: (context, value, child) => (isFavourite)
-                      ? IconButton(
-                          onPressed: () {
-                            isFavourite = false;
-                            value.deleteFavouriteProduct(
-                                widget.product.productId);
-                          },
-                          icon: const Icon(
-                            Icons.favorite,
-                            color: Colors.blueGrey,
-                          ),
-                        )
-                      : IconButton(
-                          onPressed: () {
-                            isFavourite = true;
-                            value.addFavouriteProduct(widget.product);
-                          },
-                          icon: const Icon(
-                            Icons.favorite_border,
-                            color: Colors.blueGrey,
-                          ),
+            (isAuthorized)
+                ? Column(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          ShoppingCartModel().addProduct(widget.product);
+                        },
+                        icon: const Icon(
+                          Icons.add_shopping_cart,
+                          size: 32,
+                          color: Colors.blueGrey,
                         ),
-                ),
-              ],
-            )
+                      ),
+                      Consumer<FavouritesProductModel>(
+                        builder: (context, value, child) => (isFavourite)
+                            ? IconButton(
+                                onPressed: () {
+                                  isFavourite = false;
+                                  value.deleteFavouriteProduct(
+                                      widget.product.productId);
+                                },
+                                icon: const Icon(
+                                  Icons.favorite,
+                                  color: Colors.blueGrey,
+                                ),
+                              )
+                            : IconButton(
+                                onPressed: () {
+                                  isFavourite = true;
+                                  value.addFavouriteProduct(widget.product);
+                                },
+                                icon: const Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.blueGrey,
+                                ),
+                              ),
+                      ),
+                    ],
+                  )
+                : const Column(),
           ],
         ),
       ),

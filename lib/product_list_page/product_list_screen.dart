@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_web_app/builder_app_bar.dart';
 import 'package:shop_web_app/loading_list_products.dart';
 import 'package:shop_web_app/models/product_model.dart';
+import 'package:shop_web_app/models/user_authorization_model.dart';
 import 'package:shop_web_app/product_list_page/product_list_card.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -27,9 +29,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool withCart =
+        context.watch<UserAuthorizationModel>().isAuthenticationUser;
     return Scaffold(
       appBar: AppBar(
-        title: const BuilderAppBar(titleApp: 'Shop web app', withCart: true),
+        title: BuilderAppBar(titleApp: 'Shop web app', withCart: withCart),
       ),
       body: ListView.builder(
         itemCount: products.length,

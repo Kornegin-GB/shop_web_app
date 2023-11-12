@@ -6,14 +6,17 @@ class CartProductModel {
   final String imgProduct;
   final int priceProduct;
   late int quantityProduct;
+  final int? fkUserId;
 
-  CartProductModel(
-      {this.id,
-      required this.productId,
-      required this.nameProduct,
-      required this.priceProduct,
-      required this.imgProduct,
-      required this.quantityProduct});
+  CartProductModel({
+    this.id,
+    required this.productId,
+    required this.nameProduct,
+    required this.priceProduct,
+    required this.imgProduct,
+    required this.quantityProduct,
+    this.fkUserId,
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -21,7 +24,8 @@ class CartProductModel {
       'nameProduct': nameProduct,
       'priceProduct': priceProduct,
       'imgProduct': imgProduct,
-      'quantityProduct': quantityProduct
+      'quantityProduct': quantityProduct,
+      'FK_userId': fkUserId
     };
   }
 
@@ -33,6 +37,7 @@ class CartProductModel {
       priceProduct: parsJson['priceProduct'],
       imgProduct: parsJson['imgProduct'],
       quantityProduct: parsJson['quantityProduct'],
+      fkUserId: parsJson['FK_userId'],
     );
   }
 }
